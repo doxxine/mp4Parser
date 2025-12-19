@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("SIMPLE MP4/ISOBMFF BOX HEADER PARSER.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0.0+c5d4f0c80c142fc82a8ddfc98d1fe3c69eff8596")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0.0+bfcf1c1d14eefff8a9de1037ec177c7a428229fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("mp4Parser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mp4Parser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.0.0.0")]

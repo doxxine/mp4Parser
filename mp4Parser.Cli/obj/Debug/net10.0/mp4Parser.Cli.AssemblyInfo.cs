@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mp4Parser.Cli")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5d4f0c80c142fc82a8ddfc98d1fe3c69eff8596")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfcf1c1d14eefff8a9de1037ec177c7a428229fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("mp4Parser.Cli")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mp4Parser.Cli")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

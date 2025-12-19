@@ -1,34 +1,57 @@
-# mp4Parser
+# 🎬 mp4Parser
+A modern, minimal MP4 / ISOBMFF parser for structural inspection, tooling, and automation.
 
-> MODERN, MINIMAL, NO-BULLSHIT MP4 / ISOBMFF PARSER  
-> ORIGINAL CODEBASE ~2016 · FULLY MODERNIZED TO .NET 10 / C# 14
+## Overview
+**mp4Parser** is a lightweight, low-level parser for the **ISO Base Media File Format (ISOBMFF)**, commonly known as MP4.
 
----
+It focuses exclusively on **container structure analysis** — boxes (atoms), hierarchies, sizes, offsets, and metadata blocks — without decoding audio or video streams.
 
-## WHAT THIS IS
+The project originated around **2016** as internal tooling and has since been **fully modernized** to **.NET 10 / C# 14**, preserving the original parsing logic while aligning with current platform standards.
 
-`mp4Parser` is a **low-level MP4 / ISO Base Media File Format (ISOBMFF) parser**.
+mp4Parser is designed as a precision tool for inspection, analysis, automation, and pipeline integration.
 
-It was originally written around **2016** (C# 5/6 era) for internal tooling and media analysis,
-and has now been **fully modernized** to current .NET standards while **preserving the original parsing logic and intent**.
+## ✨ Core Principles
+### 1. Container-First Parsing
+mp4Parser operates strictly at the container level.
+No decoding, no interpretation of codecs — only what is defined by the ISOBMFF specification.
 
-This is **NOT** a media player  
-This is **NOT** ffmpeg  
-This **DOES NOT** decode video or audio  
+### 2. Stream-Based Design
+All parsing is performed directly on streams.
+Files are never fully loaded into memory, enabling safe handling of very large media files.
 
-It **parses container structure**:
-- Boxes / atoms
-- Hierarchies
-- Sizes (incl. `largesize`)
-- Metadata blocks
-- Binary layout inspection
+### 3. Minimalism Over Abstraction
+The codebase avoids unnecessary layers, helpers, or dependencies.
+The goal is clarity, predictability, and spec-aligned behavior.
 
-Think **forensics**, **tooling**, **pipelines**, **inspection**, **automation**.
+### 4. Designed for Extension
+The core parser provides a stable foundation that can be extended with:
+- box-specific parsers
+- metadata extraction layers
+- validation and inspection tooling
 
----
+## 🛠️ What mp4Parser Provides
+mp4Parser focuses on structural analysis and automation-friendly workflows:
 
-## PROJECT STRUCTURE
+✔ Full ISOBMFF box traversal  
+✔ 32‑bit and 64‑bit box size support (largesize)  
+✔ Nested box hierarchies  
+✔ Proper big-endian binary reading  
+✔ Latin‑1 decoding for box types (e.g. ©nam)  
+✔ FullBox support (version + flags)  
+✔ Stream-based parsing (no full file buffering)  
 
+## 🧩 What mp4Parser Is Not
+mp4Parser deliberately avoids:
+
+- decoding video or audio
+- media playback
+- transcoding or remuxing
+- codec-level interpretation
+- ffmpeg-style convenience APIs
+
+If you need playback or transcoding, this is not the right tool.
+
+## 📦 Project Structure
 ```
 mp4Parser.sln
 │
@@ -41,69 +64,41 @@ mp4Parser.sln
     └─ mp4Parser.Cli.csproj
 ```
 
----
-
-## TECHNOLOGY STACK
-
-- **.NET 10**
-- **C# 14**
+## ⚙️ Technology Stack
+- .NET 10
+- C# 14
 - SDK-style projects
 - Nullable reference types enabled
 - Implicit usings enabled
 - Zero external dependencies
 
-NO LEGACY `App.config`  
-NO `AssemblyInfo.cs`  
-NO OLD MSBUILD MAGIC  
+No legacy `App.config`  
+No `AssemblyInfo.cs`  
+No classic MSBuild artifacts  
 
----
-
-## FEATURES
-
-- FULL ISOBMFF BOX WALKER
-- SUPPORTS:
-  - 32-bit and 64-bit box sizes
-  - Nested box hierarchies
-  - `meta` as FULL BOX
-  - Proper BIG-ENDIAN reading
-  - Latin-1 decoding for box types (e.g. `©nam`)
-- STREAM-BASED (NO FULL FILE LOAD)
-- DESIGNED FOR EXTENSION
-
----
-
-## CLI USAGE
-
-### BUILD
-
-```bash
+## ▶️ CLI Usage
+### Build
+```
 dotnet build mp4Parser.sln -c Release
 ```
 
-### PARSE LOCAL FILE
-
-```bash
+### Parse a local file
+```
 dotnet run --project mp4Parser.Cli -- ./video.mp4
 ```
 
-### PARSE WITH JSON OUTPUT
-
-```bash
+### Parse with JSON output
+```
 dotnet run --project mp4Parser.Cli -- ./video.mp4 --json
 ```
 
-### PARSE REMOTE FILE (HTTP/S)
-
-```bash
+### Parse a remote file (HTTP/S)
+```
 dotnet run --project mp4Parser.Cli -- https://example.com/video.mp4
 ```
+(The CLI downloads the file to a temporary location before parsing.)
 
-(The CLI downloads to a temp file and parses it.)
-
----
-
-## LIBRARY USAGE
-
+## 📚 Library Usage
 ```csharp
 using Mp4Parser;
 
@@ -118,63 +113,40 @@ foreach (var box in boxes)
 }
 ```
 
----
-
-## LEGACY API
-
+## 🧪 Legacy API
 Some original APIs are still present for compatibility:
 
 - `parserFunction`
 - `getTypes`
 - `PrintHeader`
 
-They are marked:
-
+They are marked as obsolete:
 ```csharp
 [Obsolete("LEGACY API – USE Parse() INSTEAD")]
 ```
 
-They will be removed once no longer needed.
+These APIs will be removed once no longer required.
+
+## 🚦 Status
+mp4Parser is stable and under light active development.
+
+Planned extensions include:
+- box-specific parsers (moov, trak, mdia, stbl, …)
+- structured metadata extraction
+- async stream support
+- fMP4 / CMAF inspection helpers
+- optional JSON or graph-based visualization output
+
+## 📄 License
+mp4Parser is released under the **MIT License**.
+
+## 🙌 Contributing
+If you value clean parsing, predictable behavior, and spec-aligned tooling,
+contributions, ideas, and discussions are welcome.
 
 ---
 
-## DESIGN PHILOSOPHY
+This project stays intentionally close to the metal.
 
-- **CONTAINER FIRST**
-- **NO MAGIC**
-- **NO GUESSING**
-- **STRUCTURE OVER CONVENIENCE**
-- **EXTENSIBLE BY DESIGN**
-
----
-
-## TODO / ROADMAP
-
-- [ ] BOX-SPECIFIC PARSERS (moov, trak, mdia, stbl, …)
-- [ ] FULL METADATA EXTRACTION
-- [ ] ASYNC STREAM SUPPORT
-- [ ] STREAMING PIPELINE INTEGRATION
-- [ ] FMP4 / CMAF VALIDATION HELPERS
-- [ ] OPTIONAL VISUALIZATION EXPORT (JSON / GRAPH)
-
----
-
-## LICENSE
-
-MIT
-
-USE IT. FORK IT. BREAK IT. FIX IT.
-
----
-
-## FINAL NOTE
-
-This project intentionally stays **close to the metal**.
-
-If you are looking for:
-- Playback → wrong tool
-- Transcoding → wrong tool
-- Convenience → wrong tool
-
-If you want to **understand what’s inside an MP4**  
-you’re exactly where you should be.
+If you want to understand what is inside an MP4 file,
+you are exactly where you should be.

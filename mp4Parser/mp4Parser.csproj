@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <AnalysisLevel>latest</AnalysisLevel>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <AssemblyName>mp4Parser</AssemblyName>
+    <RootNamespace>mp4Parser</RootNamespace>
+
+    <PackageId>mp4Parser</PackageId>
+    <Version>2.0.0</Version>
+    <Description>SIMPLE MP4/ISOBMFF BOX HEADER PARSER.</Description>
+    <PackageTags>MP4;ISOBMFF;PARSER</PackageTags>
+
+    <!-- TODO: FILL THESE IN IF YOU PLAN TO PUBLISH A NUGET PACKAGE. -->
+    <Authors></Authors>
+    <Company></Company>
+    <RepositoryUrl></RepositoryUrl>
+  </PropertyGroup>
+
+</Project>

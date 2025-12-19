@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="mp4Parser/mp4Parser.csproj" />
+    <Project Path="mp4Parser.Cli/mp4Parser.Cli.csproj" />
+  </Folder>
+</Solution>

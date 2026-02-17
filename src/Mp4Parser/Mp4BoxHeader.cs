@@ -1,4 +1,4 @@
-namespace mp4Parser;
+namespace Mp4Parser;
 
 /// <summary>
 /// REPRESENTS AN MP4/ISOBMFF BOX HEADER (TYPE, SIZE, OFFSET) PLUS PARSING CONTEXT.
@@ -12,6 +12,7 @@ public readonly record struct Mp4BoxHeader(
     long PayloadOffset,
     ulong PayloadSize)
 {
+    /// <inheritdoc />
     public override string ToString()
         => $"{new string('\t', Level)}[{Type}, size: {Size}, offset: {Offset}]";
 }

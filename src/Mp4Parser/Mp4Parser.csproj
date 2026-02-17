@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <PackageId>Mp4Parser</PackageId>
+    <Version>2.0.0</Version>
+    <Description>SIMPLE MP4/ISOBMFF BOX HEADER PARSER.</Description>
+    <PackageTags>MP4;ISOBMFF;PARSER</PackageTags>
+
+    <Authors>mathandemotion</Authors>
+    <RepositoryUrl>https://github.com/doxxine/mp4Parser</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>

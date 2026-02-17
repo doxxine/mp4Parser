@@ -1,4 +1,4 @@
-namespace mp4Parser;
+namespace Mp4Parser;
 
 /// <summary>
 /// CONFIGURATION OPTIONS FOR THE MP4 BOX PARSER.

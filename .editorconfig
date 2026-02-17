@@ -1,0 +1,49 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{csproj,props,targets,slnx}]
+indent_size = 2
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.cs]
+# NAMESPACE PREFERENCES
+csharp_style_namespace_declarations = file_scoped:warning
+
+# VAR PREFERENCES
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+
+# EXPRESSION-LEVEL PREFERENCES
+csharp_prefer_simple_using_statement = true:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_operators = true:suggestion
+
+# PATTERN MATCHING
+csharp_style_pattern_matching_over_is_with_cast_check = true:warning
+csharp_style_pattern_matching_over_as_with_null_check = true:warning
+
+# NULL CHECKING
+csharp_style_throw_expression = true:suggestion
+csharp_style_conditional_delegate_call = true:suggestion
+
+# FORMATTING
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# ANALYZER SEVERITY
+dotnet_diagnostic.CA1050.severity = warning
+dotnet_diagnostic.CA1822.severity = suggestion
+dotnet_diagnostic.CA2007.severity = suggestion

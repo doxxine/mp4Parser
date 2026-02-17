@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Mp4Parser/Mp4Parser.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Mp4Parser.Tests/Mp4Parser.Tests.csproj" />
+  </Folder>
+</Solution>

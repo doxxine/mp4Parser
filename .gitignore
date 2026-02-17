@@ -1,115 +1,42 @@
-# ==============================
-# GENERAL
-# ==============================
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-*.log
-*.tmp
-*.bak
-*.old
-
-# ==============================
-# BUILD OUTPUTS
-# ==============================
+# BUILD OUTPUT
 bin/
 obj/
 out/
 artifacts/
 TestResults/
 
-# ==============================
-# .NET / MSBUILD
-# ==============================
-*.user
-*.rsuser
-*.suo
-*.userosscache
-*.sln.docstates
-*.cache
-*.tmp_proj
-
-# ==============================
-# VISUAL STUDIO
-# ==============================
-.vs/
-.vscode/
-*.vsidx
-*.sdf
-*.opensdf
-*.VC.db
-*.VC.VC.opendb
-
-# ==============================
-# JETBRAINS (RIDER / IDEA)
-# ==============================
-.idea/
-*.sln.iml
-*.iml
-*.ipr
-*.iws
-.ideaModules/
-
-# ==============================
-# RIDER-SPECIFIC
-# ==============================
-*.DotSettings.user
-*.DotSettings
-_ReSharper*/
-*.resharper
-*.ReSharper
-
-# ==============================
 # NUGET
-# ==============================
 packages/
 *.nupkg
 *.snupkg
-.nuget/
-.nuget/packages/
 
-# ==============================
-# PUBLISH / DEPLOY
-# ==============================
-publish/
-publishOutput/
-*.publish.xml
-*.pubxml
-*.pubxml.user
+# IDE
+.vs/
+.vscode/
+.idea/
+*.sln.iml
+*.DotSettings.user
 
-# ==============================
-# COVERAGE / TESTING
-# ==============================
+# MSBUILD / USER-SPECIFIC
+*.user
+*.suo
+*.cache
+
+# COVERAGE
 coverage/
-coverage.xml
-coverage.json
 *.coverage
 *.coveragexml
 
-# ==============================
-# TEMP / CACHE
-# ==============================
-.tmp/
-.temp/
-.cache/
-*.pidb
-*.svclog
+# OS
+.DS_Store
+Thumbs.db
 
-# ==============================
-# OS-SPECIFIC
-# ==============================
-ehthumbs.db
-Desktop.ini
+# CAKE
+tools/
 
-# ==============================
-# OPTIONAL: LOGS & DUMPS
-# ==============================
-*.stackdump
+# MISC
+*.log
+*.tmp
+*.bak
+*.swp
 *.dmp
-
-# ==============================
-# OPTIONAL: LOCAL CONFIG OVERRIDES
-# ==============================
-appsettings.Development.json
-appsettings.Local.json

@@ -1,152 +1,111 @@
-# 🎬 mp4Parser
-A modern, minimal MP4 / ISOBMFF parser for structural inspection, tooling, and automation.
+# 🎬 Mp4Parser
 
-## Overview
-**mp4Parser** is a lightweight, low-level parser for the **ISO Base Media File Format (ISOBMFF)**, commonly known as MP4.
+A modern, minimal MP4 / ISOBMFF box header parser for .NET — built for structural inspection, tooling, and automation.
 
-It focuses exclusively on **container structure analysis** — boxes (atoms), hierarchies, sizes, offsets, and metadata blocks — without decoding audio or video streams.
+## 🚀 Quickstart
 
-The project originated around **2016** as internal tooling and has since been **fully modernized** to **.NET 10 / C# 14**, preserving the original parsing logic while aligning with current platform standards.
+```csharp
+using Mp4Parser;
 
-mp4Parser is designed as a precision tool for inspection, analysis, automation, and pipeline integration.
+// PARSE FROM FILE
+var boxes = Parser.Parse("video.mp4");
 
-## ✨ Core Principles
-### 1. Container-First Parsing
-mp4Parser operates strictly at the container level.
-No decoding, no interpretation of codecs — only what is defined by the ISOBMFF specification.
+// OR FROM A STREAM
+using var stream = File.OpenRead("video.mp4");
+var boxes = Parser.Parse(stream);
 
-### 2. Stream-Based Design
-All parsing is performed directly on streams.
-Files are never fully loaded into memory, enabling safe handling of very large media files.
+// ASYNC VARIANT WITH CANCELLATION
+var boxes = await Parser.ParseAsync("video.mp4", cancellationToken: cts.Token);
 
-### 3. Minimalism Over Abstraction
-The codebase avoids unnecessary layers, helpers, or dependencies.
-The goal is clarity, predictability, and spec-aligned behavior.
+// PRINT THE BOX TREE
+Parser.PrintTree(boxes, Console.Out);
+```
 
-### 4. Designed for Extension
-The core parser provides a stable foundation that can be extended with:
-- box-specific parsers
-- metadata extraction layers
-- validation and inspection tooling
+Output:
+```
+[ftyp, size: 32, offset: 0]
+[moov, size: 1024, offset: 32]
+	[mvhd, size: 108, offset: 40]
+	[trak, size: 900, offset: 148]
+		[tkhd, size: 92, offset: 156]
+		[mdia, size: 800, offset: 248]
+			[mdhd, size: 32, offset: 256]
+			[hdlr, size: 45, offset: 288]
+			[minf, size: 715, offset: 333]
+[mdat, size: 999936, offset: 1056]
+```
 
-## 🛠️ What mp4Parser Provides
-mp4Parser focuses on structural analysis and automation-friendly workflows:
+## ✨ Features
 
-✔ Full ISOBMFF box traversal  
-✔ 32‑bit and 64‑bit box size support (largesize)  
-✔ Nested box hierarchies  
-✔ Proper big-endian binary reading  
-✔ Latin‑1 decoding for box types (e.g. ©nam)  
-✔ FullBox support (version + flags)  
-✔ Stream-based parsing (no full file buffering)  
+- 📦 Full ISOBMFF box traversal (depth-first)
+- 📐 32-bit and 64-bit box size support (largesize)
+- 🪆 Nested container hierarchies (moov > trak > mdia > ...)
+- 🔢 Proper big-endian binary reading via `BinaryPrimitives`
+- 🔤 Latin-1 decoding for box types (handles `©nam` and friends)
+- 📋 FullBox support for `meta` (version + flags skipped automatically)
+- 🌊 Stream-based parsing — no full file buffering for seekable streams
+- ⚡ Async overloads with `CancellationToken` support
+- 🔒 Strict mode: throw `InvalidDataException` on malformed input
+- 🎛️ Configurable container types and max depth via `Mp4ParseOptions`
+- 🪶 Zero external dependencies
 
-## 🧩 What mp4Parser Is Not
-mp4Parser deliberately avoids:
+## 📦 Repository Structure
 
-- decoding video or audio
-- media playback
-- transcoding or remuxing
-- codec-level interpretation
+```
+mp4-parser/
+├── src/
+│   └── Mp4Parser/            # CORE LIBRARY
+│       ├── Parser.cs          # MAIN PARSER (SYNC + ASYNC)
+│       ├── Mp4BoxHeader.cs    # BOX HEADER RECORD STRUCT
+│       └── Mp4ParseOptions.cs # CONFIGURATION OPTIONS
+├── tests/
+│   └── Mp4Parser.Tests/      # XUNIT TESTS
+│       └── ParserTests.cs
+├── Directory.Build.props      # SHARED BUILD PROPERTIES
+├── .editorconfig              # CODE STYLE RULES
+├── mp4-parser.slnx            # SOLUTION FILE
+├── build.cake                 # CAKE BUILD SCRIPT
+└── LICENSE                    # MIT
+```
+
+## ⚙️ Technology Stack
+
+- .NET 10 / C# 14
+- Zero external dependencies (library)
+- xUnit (tests)
+- Cake (build automation)
+
+## 🏗️ Build
+
+```bash
+# RESTORE + BUILD + TEST (VIA CAKE)
+dotnet tool restore
+dotnet cake
+
+# OR MANUALLY
+dotnet build mp4-parser.slnx
+dotnet test mp4-parser.slnx
+```
+
+## 🧩 What This Is Not
+
+Mp4Parser deliberately avoids:
+
+- Decoding video or audio streams
+- Media playback or transcoding
+- Codec-level interpretation
 - ffmpeg-style convenience APIs
 
 If you need playback or transcoding, this is not the right tool.
 
-## 📦 Project Structure
-```
-mp4Parser.sln
-│
-├─ mp4Parser/            # CORE LIBRARY (.NET 10)
-│   ├─ Mp4Parser.cs
-│   └─ mp4Parser.csproj
-│
-└─ mp4Parser.Cli/        # SMALL CLI TOOL
-    ├─ Program.cs
-    └─ mp4Parser.Cli.csproj
-```
+## 🤝 Contributing
 
-## ⚙️ Technology Stack
-- .NET 10
-- C# 14
-- SDK-style projects
-- Nullable reference types enabled
-- Implicit usings enabled
-- Zero external dependencies
-
-No legacy `App.config`  
-No `AssemblyInfo.cs`  
-No classic MSBuild artifacts  
-
-## ▶️ CLI Usage
-### Build
-```
-dotnet build mp4Parser.sln -c Release
-```
-
-### Parse a local file
-```
-dotnet run --project mp4Parser.Cli -- ./video.mp4
-```
-
-### Parse with JSON output
-```
-dotnet run --project mp4Parser.Cli -- ./video.mp4 --json
-```
-
-### Parse a remote file (HTTP/S)
-```
-dotnet run --project mp4Parser.Cli -- https://example.com/video.mp4
-```
-(The CLI downloads the file to a temporary location before parsing.)
-
-## 📚 Library Usage
-```csharp
-using Mp4Parser;
-
-using var stream = File.OpenRead("video.mp4");
-
-var parser = new Mp4Parser();
-var boxes = parser.Parse(stream);
-
-foreach (var box in boxes)
-{
-    Console.WriteLine($"{box.Type} @ {box.Offset} ({box.Size} bytes)");
-}
-```
-
-## 🧪 Legacy API
-Some original APIs are still present for compatibility:
-
-- `parserFunction`
-- `getTypes`
-- `PrintHeader`
-
-They are marked as obsolete:
-```csharp
-[Obsolete("LEGACY API – USE Parse() INSTEAD")]
-```
-
-These APIs will be removed once no longer required.
-
-## 🚦 Status
-mp4Parser is stable and under light active development.
-
-Planned extensions include:
-- box-specific parsers (moov, trak, mdia, stbl, …)
-- structured metadata extraction
-- async stream support
-- fMP4 / CMAF inspection helpers
-- optional JSON or graph-based visualization output
+If you value clean parsing, predictable behavior, and spec-aligned tooling — contributions, ideas, and discussions are welcome.
 
 ## 📄 License
-mp4Parser is released under the **MIT License**.
 
-## 🙌 Contributing
-If you value clean parsing, predictable behavior, and spec-aligned tooling,
-contributions, ideas, and discussions are welcome.
+MIT — see [LICENSE](LICENSE).
 
 ---
 
-This project stays intentionally close to the metal.
-
-If you want to understand what is inside an MP4 file,
-you are exactly where you should be.
+*This project stays intentionally close to the metal. If you want to understand what is inside an MP4 file, you are exactly where you should be.*
